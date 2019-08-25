@@ -28,7 +28,17 @@ def cal_cost(theta, X, y):
 
 	return cost
 
+def gradient_descent(X, y, theta, learning_rate, iterations):
+	m = len(y)
+	cost_history = np.zeros(iterations)
+	theta_history   = np.zeros((iterations, 2))
 
+	for it in range(iterations):
+		prediction = np.dot(X, theta)
+		theta = theta - learning_rate * (1/m) *(X.T.dot((prediction - y)))
+		theta_history[it, :] = theta.T
+		cost_history[it] = cal_cost(theta, X, y)
+	return theta, cost_history, theta_history
 
 
 #plt.show()
